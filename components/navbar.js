@@ -16,8 +16,8 @@ import { ModeToggle } from './dark-mode';
 const Navbar = () => {
     const navItems = [
         { label: 'Home', href: '/' },
-        { label: 'About', href: '/about' },
-        { label: 'Services', href: '/services' },
+        { label: 'Blogs', href: '/blog' },
+        { label: 'FoodMap', href: '/foodmap' },
         { label: 'Contact', href: '/contact' }
     ];
 
@@ -28,7 +28,7 @@ const Navbar = () => {
                     {/* Logo */}
                     <div className="flex-shrink-0">
                         <Link href="/" className="text-xl font-bold text-foreground">
-                            Logo
+                            ShareABite
                         </Link>
                     </div>
 
