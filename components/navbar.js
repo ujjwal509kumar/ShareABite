@@ -3,22 +3,29 @@
 import React from 'react';
 import Link from 'next/link';
 import { Menu } from 'lucide-react';
+import { useSession, signOut } from 'next-auth/react';
 import {
     Sheet,
     SheetContent,
     SheetTrigger,
     SheetHeader,
     SheetTitle,
-} from "@/components/ui/sheet"
-import { Button } from "@/components/ui/button"
+} from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 import { ModeToggle } from './dark-mode';
 
 const Navbar = () => {
+    const { data: session } = useSession();
+
+    const handleSignOut = async () => {
+        await signOut({ callbackUrl: '/' });
+    };
+
     const navItems = [
         { label: 'Home', href: '/' },
         { label: 'Blogs', href: '/blog' },
         { label: 'FoodMap', href: '/foodmap' },
-        { label: 'Contact', href: '/contact' }
+        { label: 'Contact', href: '/contact' },
     ];
 
     return (
@@ -32,7 +39,7 @@ const Navbar = () => {
                         </Link>
                     </div>
 
-                    {/* pc */}
+                    {/* Desktop Navigation */}
                     <div className="hidden md:block">
                         <div className="ml-10 flex items-center space-x-4">
                             {navItems.map((item) => (
@@ -44,19 +51,28 @@ const Navbar = () => {
                                     {item.label}
                                 </Link>
                             ))}
-                            <Button variant="default" asChild>
-                                <Link href="/signin">Sign In</Link>
-                            </Button>
+                            {session ? (
+                                <Button
+                                    variant="default"
+                                    className="px-4"
+                                    onClick={handleSignOut}
+                                >
+                                    Sign Out
+                                </Button>
+                            ) : (
+                                <Button variant="default" asChild>
+                                    <Link href="/signin">Sign In</Link>
+                                </Button>
+                            )}
                             <ModeToggle />
                         </div>
                     </div>
 
-                    {/* mobile */}
+                    {/* Mobile Navigation */}
                     <div className="md:hidden">
                         <Sheet>
                             <ModeToggle />
                             <SheetTrigger asChild>
-
                                 <Button variant="ghost" size="icon" aria-label="Open menu">
                                     <Menu className="h-6 w-6" />
                                 </Button>
@@ -75,9 +91,19 @@ const Navbar = () => {
                                             {item.label}
                                         </Link>
                                     ))}
-                                    <Button variant="default" className="w-full" asChild>
-                                        <Link href="/signin">Sign In</Link>
-                                    </Button>
+                                    {session ? (
+                                        <Button
+                                            variant="default"
+                                            className="w-full"
+                                            onClick={handleSignOut}
+                                        >
+                                            Sign Out
+                                        </Button>
+                                    ) : (
+                                        <Button variant="default" className="w-full" asChild>
+                                            <Link href="/signin">Sign In</Link>
+                                        </Button>
+                                    )}
                                 </div>
                             </SheetContent>
                         </Sheet>
