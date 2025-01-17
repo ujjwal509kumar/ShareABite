@@ -1,15 +1,17 @@
-"use client"
+"use client";
+
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Head from "next/head";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Dashboard() {
     const { data: session, status } = useSession();
     const router = useRouter();
 
-    if (status === 'loading') {
+    if (status === "loading") {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <div className="loader"></div>
@@ -18,7 +20,7 @@ export default function Dashboard() {
     }
 
     if (!session) {
-        router.push('/signin');
+        router.push("/signin");
         return null;
     }
 
@@ -31,31 +33,91 @@ export default function Dashboard() {
             <Head>
                 <title>Dashboard</title>
             </Head>
-            <div className="min-h-screen flex items-center justify-center bg-white text-black dark:bg-black dark:text-white">
-                <div className="w-full max-w-lg p-8 rounded-lg shadow-lg bg-gray-100 dark:bg-gray-800">
-                    <h1 className="text-3xl font-bold text-center mb-6">Welcome to your Dashboard</h1>
-                    <div className="mb-4">
-                        <p className="text-xl">User Information:</p>
-                        <ul className="list-disc ml-5">
-                            <li><strong>Name:</strong> {session.user?.name}</li>
-                            <li><strong>Email:</strong> {session.user?.email}</li>
-                            <li><strong>Image:</strong> {session.user?.image ? (
-                                <Image
-                                    src={session.user?.image}
-                                    alt="Profile"
-                                    width={48}
-                                    height={48}
-                                    className="rounded-full"
-                                />
-                            ) : "No image available"}</li>
-                        </ul>
+            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 mt-9">
+                <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                        {/* Sidebar */}
+                        <aside className="lg:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col items-center">
+                            <div className="text-center mb-6">
+                                {session.user?.image && (
+                                    <Image
+                                        src={session.user.image}
+                                        alt="Profile"
+                                        width={70}
+                                        height={70}
+                                        className="rounded-full mx-auto mb-4 border-2 border-indigo-500"
+                                    />
+                                )}
+                                <h2 className="text-xl font-bold">{session.user?.name}</h2>
+                                <p className="text-sm text-gray-500 dark:text-gray-400">
+                                    {session.user?.email}
+                                </p>
+                            </div>
+                            <nav className="space-y-4 w-full text-center">
+                                <Link
+                                    href="/add-food"
+                                    className="block py-2 px-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500 transition-all"
+                                >
+                                    Add Food Listing
+                                </Link>
+                                <Link
+                                    href="/my-listings"
+                                    className="block py-2 px-4 bg-teal-600 text-white rounded-lg hover:bg-teal-500 transition-all"
+                                >
+                                    My Listings
+                                </Link>
+                                <Link
+                                    href="/contact-team"
+                                    className="block py-2 px-4 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-all"
+                                >
+                                    Contact Team
+                                </Link>
+                            </nav>
+                            <Button
+                                onClick={handleLogout}
+                                className="mt-6 w-full py-2 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-all dark:bg-red-500 dark:hover:bg-red-400"
+                            >
+                                Log Out
+                            </Button>
+                        </aside>
+
+                        {/* Main Content */}
+                        <main className="lg:col-span-3 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+                            <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">Welcome to Your Dashboard</h1>
+                            <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
+                                Use the links on the left to manage your account, add food listings, or contact our team. 
+                                Thank you for helping us make a difference in the community!
+                            </p>
+
+                            {/* Highlighted Features */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md flex flex-col items-center border border-gray-300 dark:border-gray-600">
+                                    <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-400">
+                                        Add Food
+                                    </h3>
+                                    <p className="text-gray-600 dark:text-gray-300 mt-2 text-center">
+                                        Register food items to help others in need.
+                                    </p>
+                                </div>
+                                <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md flex flex-col items-center border border-gray-300 dark:border-gray-600">
+                                    <h3 className="text-xl font-semibold text-teal-600 dark:text-teal-400">
+                                        View Listings
+                                    </h3>
+                                    <p className="text-gray-600 dark:text-gray-300 mt-2 text-center">
+                                        Check your contributions and their status.
+                                    </p>
+                                </div>
+                                <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md flex flex-col items-center border border-gray-300 dark:border-gray-600">
+                                    <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-300">
+                                        Contact Us
+                                    </h3>
+                                    <p className="text-gray-600 dark:text-gray-300 mt-2 text-center">
+                                        Get in touch with our team for assistance.
+                                    </p>
+                                </div>
+                            </div>
+                        </main>
                     </div>
-                    <Button
-                        onClick={handleLogout}
-                        className="w-full py-3 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-all dark:bg-red-500 dark:hover:bg-red-400"
-                    >
-                        Log Out
-                    </Button>
                 </div>
             </div>
         </>
