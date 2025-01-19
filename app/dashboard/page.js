@@ -33,11 +33,11 @@ export default function Dashboard() {
             <Head>
                 <title>Dashboard</title>
             </Head>
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 mt-9">
+            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 mt-10">
                 <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-6">
                         {/* Sidebar */}
-                        <aside className="lg:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col items-center">
+                        <aside className="col-span-1 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
                             <div className="text-center mb-6">
                                 {session.user?.image && (
                                     <Image
@@ -53,36 +53,45 @@ export default function Dashboard() {
                                     {session.user?.email}
                                 </p>
                             </div>
-                            <nav className="space-y-4 w-full text-center">
-                                <Link
-                                    href="/add-food"
-                                    className="block py-2 px-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500 transition-all"
-                                >
-                                    Add Food Listing
-                                </Link>
-                                <Link
-                                    href="/my-listings"
-                                    className="block py-2 px-4 bg-teal-600 text-white rounded-lg hover:bg-teal-500 transition-all"
-                                >
-                                    My Listings
-                                </Link>
-                                <Link
-                                    href="/contact-team"
-                                    className="block py-2 px-4 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-all"
-                                >
-                                    Contact Team
-                                </Link>
-                            </nav>
-                            <Button
-                                onClick={handleLogout}
-                                className="mt-6 w-full py-2 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-all dark:bg-red-500 dark:hover:bg-red-400"
+                            <nav className="space-y-4">
+                            {/* Dashboard Button */}
+                            <Link
+                                href="/dashboard"
+                                className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
                             >
-                                Log Out
-                            </Button>
+                                Dashboard
+                            </Link>
+                            {/* Add Food Listing Button with Active Border */}
+                            <Link
+                                href="/dashboard/addfood"
+                                className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center border-2 border-indigo-500"
+                            >
+                                Add Food Listing
+                            </Link>
+                            <Link
+                                href="/my-listings"
+                                className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
+                            >
+                                My Listings
+                            </Link>
+                            <Link
+                                href="/contact-team"
+                                className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
+                            >
+                                Contact Team
+                            </Link>
+                        </nav>
+                        {/* Log Out Button */}
+                        <Button
+                            onClick={() => signOut({ callbackUrl: '/signin' })}
+                            className="mt-6 w-full py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
+                        >
+                            Log Out
+                        </Button>
                         </aside>
 
                         {/* Main Content */}
-                        <main className="lg:col-span-3 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+                        <main className="col-span-3 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
                             <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">Welcome to Your Dashboard</h1>
                             <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
                                 Use the links on the left to manage your account, add food listings, or contact our team. 
