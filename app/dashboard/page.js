@@ -54,47 +54,53 @@ export default function Dashboard() {
                                 </p>
                             </div>
                             <nav className="space-y-4">
-                            {/* Dashboard Button */}
-                            <Link
-                                href="/dashboard"
-                                className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center border-2 border-indigo-500"
+                                {/* Dashboard Button */}
+                                <Link
+                                    href="/dashboard"
+                                    className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center border-2 border-indigo-500"
+                                >
+                                    Dashboard
+                                </Link>
+                                {/* Add Food Listing Button with Active Border */}
+                                <Link
+                                    href="/dashboard/addfood"
+                                    className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
+                                >
+                                    Add Food Listing
+                                </Link>
+                                <Link
+                                    href="/my-listings"
+                                    className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
+                                >
+                                    My Listings
+                                </Link>
+                                <Link
+                                    href="/trackfood"
+                                    className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
+                                >
+                                    Track Progress
+                                </Link>
+                                <Link
+                                    href="/donate"
+                                    className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
+                                >
+                                    Donate Us
+                                </Link>
+                            </nav>
+                            {/* Log Out Button */}
+                            <Button
+                                onClick={() => signOut({ callbackUrl: '/signin' })}
+                                className="mt-4 w-full py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
                             >
-                                Dashboard
-                            </Link>
-                            {/* Add Food Listing Button with Active Border */}
-                            <Link
-                                href="/dashboard/addfood"
-                                className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
-                            >
-                                Add Food Listing
-                            </Link>
-                            <Link
-                                href="/my-listings"
-                                className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
-                            >
-                                My Listings
-                            </Link>
-                            <Link
-                                href="/contact-team"
-                                className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
-                            >
-                                Contact Team
-                            </Link>
-                        </nav>
-                        {/* Log Out Button */}
-                        <Button
-                            onClick={() => signOut({ callbackUrl: '/signin' })}
-                            className="mt-6 w-full py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
-                        >
-                            Log Out
-                        </Button>
+                                Log Out
+                            </Button>
                         </aside>
 
                         {/* Main Content */}
                         <main className="col-span-3 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
                             <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">Welcome to Your Dashboard</h1>
                             <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-                                Use the links on the left to manage your account, add food listings, or contact our team. 
+                                Use the links on the left to manage your account, add food listings, or contact our team.
                                 Thank you for helping us make a difference in the community!
                             </p>
 
@@ -118,10 +124,10 @@ export default function Dashboard() {
                                 </div>
                                 <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md flex flex-col items-center border border-gray-300 dark:border-gray-600">
                                     <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-300">
-                                        Contact Us
+                                        Track Progress
                                     </h3>
                                     <p className="text-gray-600 dark:text-gray-300 mt-2 text-center">
-                                        Get in touch with our team for assistance.
+                                        Track progress of the food how we are using it
                                     </p>
                                 </div>
                             </div>
