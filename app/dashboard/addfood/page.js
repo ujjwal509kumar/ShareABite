@@ -16,6 +16,7 @@ const AddFoodPage = () => {
     const { data: session, status } = useSession();
     const router = useRouter();
 
+    // Form states
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [quantity, setQuantity] = useState('');
@@ -24,6 +25,13 @@ const AddFoodPage = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(0);
     const [previewImage, setPreviewImage] = useState(null);
+    const [address, setAddress] = useState({
+        street: '',
+        city: '',
+        state: '',
+        postalCode: '',
+        landmark: ''
+    });
 
     useEffect(() => {
         if (status === 'unauthenticated') {
@@ -54,6 +62,13 @@ const AddFoodPage = () => {
             formData.append('quantity', quantity);
             formData.append('expirationDate', expirationDate);
             formData.append('image', image);
+            
+            // Address data
+            formData.append('street', address.street);
+            formData.append('city', address.city);
+            formData.append('state', address.state);
+            formData.append('postalCode', address.postalCode);
+            formData.append('landmark', address.landmark);
 
             // Simulate upload progress
             const interval = setInterval(() => {
@@ -100,12 +115,17 @@ const AddFoodPage = () => {
         }
     };
 
-    if (status === 'loading') {
+    if (status === "loading") {
         return (
             <div className="min-h-screen flex items-center justify-center">
-                <Loader2 className="h-8 w-8 animate-spin" />
+                <div className="loader"></div>
             </div>
         );
+    }
+
+    if (!session) {
+        router.push("/signin");
+        return null;
     }
 
     return (
@@ -124,20 +144,18 @@ const AddFoodPage = () => {
                                     className="rounded-full mx-auto mb-4 border-2 border-indigo-500"
                                 />
                             )}
-                            <h2 className="text-xl font-bold">{session.user?.name}</h2>
+                            <h2 className="text-xl font-bold dark:text-gray-200">{session.user?.name}</h2>
                             <p className="text-sm text-gray-500 dark:text-gray-400">
                                 {session.user?.email}
                             </p>
                         </div>
                         <nav className="space-y-4">
-                            {/* Dashboard Button */}
                             <Link
                                 href="/dashboard"
                                 className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
                             >
                                 Dashboard
                             </Link>
-                            {/* Add Food Listing Button with Active Border */}
                             <Link
                                 href="/dashboard/addfood"
                                 className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center border-2 border-indigo-500"
@@ -157,13 +175,18 @@ const AddFoodPage = () => {
                                 Track Progress
                             </Link>
                             <Link
-                                href="/donate"
+                                href="/dashboard/donate"
                                 className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
                             >
                                 Donate Us
                             </Link>
+                            <Link
+                                href="/mydonations"
+                                className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
+                            >
+                                My Donations
+                            </Link>
                         </nav>
-                        {/* Log Out Button */}
                         <Button
                             onClick={() => signOut({ callbackUrl: '/signin' })}
                             className="mt-4 w-full py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
@@ -199,7 +222,7 @@ const AddFoodPage = () => {
                                             />
                                         ) : (
                                             <div className="text-center space-y-3">
-                                                <ImagePlus className="h-8 w-8 text-gray-400 mx-auto" />
+                                                <ImagePlus className="h-8 w-8 text-gray-400 dark:text-gray-500 mx-auto" />
                                                 <div>
                                                     <p className="text-sm text-gray-600 dark:text-gray-400">
                                                         Drag and drop or{" "}
@@ -224,9 +247,56 @@ const AddFoodPage = () => {
                                 </div>
                             </div>
 
-                            {/* Form Grid */}
+                            {/* Address Fields */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {/* Food Name */}
+                                <div className="space-y-2">
+                                    <Input
+                                        placeholder="Street Address"
+                                        value={address.street}
+                                        onChange={(e) => setAddress({...address, street: e.target.value})}
+                                        className="dark:bg-gray-700 dark:text-gray-100"
+                                        required
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Input
+                                        placeholder="City"
+                                        value={address.city}
+                                        onChange={(e) => setAddress({...address, city: e.target.value})}
+                                        className="dark:bg-gray-700 dark:text-gray-100"
+                                        required
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Input
+                                        placeholder="State/Province"
+                                        value={address.state}
+                                        onChange={(e) => setAddress({...address, state: e.target.value})}
+                                        className="dark:bg-gray-700 dark:text-gray-100"
+                                        required
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Input
+                                        placeholder="Postal Code"
+                                        value={address.postalCode}
+                                        onChange={(e) => setAddress({...address, postalCode: e.target.value})}
+                                        className="dark:bg-gray-700 dark:text-gray-100"
+                                        required
+                                    />
+                                </div>
+                                <div className="md:col-span-2 space-y-2">
+                                    <Input
+                                        placeholder="Landmark (e.g., near Central Park)"
+                                        value={address.landmark}
+                                        onChange={(e) => setAddress({...address, landmark: e.target.value})}
+                                        className="dark:bg-gray-700 dark:text-gray-100"
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Food Details */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                         Food Item Name
@@ -235,13 +305,10 @@ const AddFoodPage = () => {
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
                                         placeholder="e.g., Fresh Garden Salad"
-                                        className="dark:bg-gray-700 focus:ring-2 focus:ring-indigo-400"
-                                        disabled={isSubmitting}
+                                        className="dark:bg-gray-700 dark:text-gray-100"
                                         required
                                     />
                                 </div>
-
-                                {/* Quantity */}
                                 <div className="space-y-2">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                         Available Quantity
@@ -252,13 +319,10 @@ const AddFoodPage = () => {
                                         onChange={(e) => setQuantity(e.target.value)}
                                         placeholder="Number of servings"
                                         min="1"
-                                        className="dark:bg-gray-700"
-                                        disabled={isSubmitting}
+                                        className="dark:bg-gray-700 dark:text-gray-100"
                                         required
                                     />
                                 </div>
-
-                                {/* Expiration Date */}
                                 <div className="space-y-2">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                         Expiration Date
@@ -268,28 +332,9 @@ const AddFoodPage = () => {
                                         value={expirationDate}
                                         onChange={(e) => setExpirationDate(e.target.value)}
                                         min={new Date().toISOString().split('T')[0]}
-                                        className="dark:bg-gray-700"
-                                        disabled={isSubmitting}
+                                        className="dark:bg-gray-700 dark:text-gray-100"
                                         required
                                     />
-                                </div>
-
-                                {/* Category (Optional) */}
-                                <div className="space-y-2">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        Food Category (optional)
-                                    </label>
-                                    <select
-                                        className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
-                                        disabled={isSubmitting}
-                                    >
-                                        <option value="">Select category</option>
-                                        <option>Vegetarian</option>
-                                        <option>Vegan</option>
-                                        <option>Dairy</option>
-                                        <option>Bakery</option>
-                                        <option>Prepared Meals</option>
-                                    </select>
                                 </div>
                             </div>
 
@@ -302,9 +347,8 @@ const AddFoodPage = () => {
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
                                     placeholder="Include ingredients, dietary information, packaging details..."
-                                    className="dark:bg-gray-700 h-32"
+                                    className="h-32 dark:bg-gray-700 dark:text-gray-100"
                                     maxLength={500}
-                                    disabled={isSubmitting}
                                     required
                                 />
                                 <p className="text-sm text-gray-500 dark:text-gray-400 text-right">
