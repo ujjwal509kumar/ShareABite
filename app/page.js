@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Heart, Utensils, Users, Clock, MapPin, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -34,9 +35,11 @@ export default function Home() {
               people&apos;s lives.
             </p>
             <div className='flex flex-wrap gap-4'>
-              <Button size='lg' className='bg-primary hover:bg-primary/90 text-primary-foreground'>
-                Donate Food
-              </Button>
+              <Link href="/dashboard">
+                <Button size='lg' className='bg-primary hover:bg-primary/90 text-primary-foreground'>
+                  Donate Food
+                </Button>
+              </Link>
               <Button size='lg' variant='secondary'>
                 Learn More
               </Button>
