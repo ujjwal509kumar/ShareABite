@@ -181,7 +181,7 @@ const AddFoodPage = () => {
                                 Donate Us
                             </Link>
                             <Link
-                                href="/mydonations"
+                                href="/dashboard/mydonations"
                                 className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
                             >
                                 My Donations
