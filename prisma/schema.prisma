@@ -44,6 +44,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
+  donations     Donation[]
 }
 
 model VerificationRequest {
@@ -55,4 +56,25 @@ model VerificationRequest {
   updatedAt  DateTime @updatedAt
 
   @@unique([identifier, token])
+}
+
+model Donation {
+  id                String   @id @default(cuid())
+  amount            Decimal
+  currency          String   @default("INR")
+  paymentId         String   @unique
+  orderId           String   @unique
+  signature         String?
+  status            String   @default("PENDING")
+  donorEmail        String
+  donorName         String?
+  razorpayCreatedAt DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  userId            String
+  user              User     @relation(fields: [userId], references: [id])
+
+  @@index([donorEmail])
+  @@index([status])
+  @@index([createdAt])
 }
