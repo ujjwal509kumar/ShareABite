@@ -6,7 +6,6 @@ import { useSession, signOut } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Progress } from '@/components/ui/progress';
 import { Loader2, CheckCircle, ImagePlus } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import Link from 'next/link';
@@ -23,7 +22,6 @@ const AddFoodPage = () => {
     const [expirationDate, setExpirationDate] = useState('');
     const [image, setImage] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [uploadProgress, setUploadProgress] = useState(0);
     const [previewImage, setPreviewImage] = useState(null);
     const [address, setAddress] = useState({
         street: '',
@@ -70,24 +68,10 @@ const AddFoodPage = () => {
             formData.append('postalCode', address.postalCode);
             formData.append('landmark', address.landmark);
 
-            // Simulate upload progress
-            const interval = setInterval(() => {
-                setUploadProgress(prev => {
-                    if (prev >= 90) {
-                        clearInterval(interval);
-                        return prev;
-                    }
-                    return prev + 10;
-                });
-            }, 200);
-
-            const res = await fetch('/api/add-food', {
+            const res = await fetch('/api/addfood', {
                 method: 'POST',
                 body: formData,
             });
-
-            clearInterval(interval);
-            setUploadProgress(100);
 
             if (res.ok) {
                 toast.success('Listing added successfully!', {
@@ -98,7 +82,7 @@ const AddFoodPage = () => {
                     },
                     duration: 2000,
                 });
-                setTimeout(() => router.push('/dashboard'), 2000);
+                setTimeout(() => router.push('dashboard/mylisting'), 2000);
             } else {
                 throw new Error('Failed to add listing');
             }
@@ -111,7 +95,6 @@ const AddFoodPage = () => {
             });
         } finally {
             setIsSubmitting(false);
-            setUploadProgress(0);
         }
     };
 
@@ -163,7 +146,7 @@ const AddFoodPage = () => {
                                 Add Food Listing
                             </Link>
                             <Link
-                                href="/my-listings"
+                                href="/dashboard/mylisting"
                                 className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
                             >
                                 My Listings
@@ -208,7 +191,7 @@ const AddFoodPage = () => {
                             {/* Image Upload */}
                             <div className="space-y-4">
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    Food Photos
+                                    Food Photo
                                 </label>
                                 <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl hover:border-indigo-400 transition-colors">
                                     <label className="flex flex-col items-center justify-center p-8 cursor-pointer relative h-48 overflow-hidden">
@@ -227,7 +210,7 @@ const AddFoodPage = () => {
                                                     <p className="text-sm text-gray-600 dark:text-gray-400">
                                                         Drag and drop or{" "}
                                                         <span className="text-indigo-600 dark:text-indigo-400 font-medium">
-                                                            browse files
+                                                            browse picture
                                                         </span>
                                                     </p>
                                                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -250,6 +233,9 @@ const AddFoodPage = () => {
                             {/* Address Fields */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                        Street Address
+                                    </label>
                                     <Input
                                         placeholder="Street Address"
                                         value={address.street}
@@ -259,6 +245,9 @@ const AddFoodPage = () => {
                                     />
                                 </div>
                                 <div className="space-y-2">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                        City
+                                    </label>
                                     <Input
                                         placeholder="City"
                                         value={address.city}
@@ -268,6 +257,9 @@ const AddFoodPage = () => {
                                     />
                                 </div>
                                 <div className="space-y-2">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                        State
+                                    </label>
                                     <Input
                                         placeholder="State/Province"
                                         value={address.state}
@@ -277,6 +269,9 @@ const AddFoodPage = () => {
                                     />
                                 </div>
                                 <div className="space-y-2">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                        Pin code
+                                    </label>
                                     <Input
                                         placeholder="Postal Code"
                                         value={address.postalCode}
@@ -286,6 +281,9 @@ const AddFoodPage = () => {
                                     />
                                 </div>
                                 <div className="md:col-span-2 space-y-2">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                        Landmark
+                                    </label>
                                     <Input
                                         placeholder="Landmark (e.g., near Central Park)"
                                         value={address.landmark}
@@ -304,7 +302,7 @@ const AddFoodPage = () => {
                                     <Input
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
-                                        placeholder="e.g., Fresh Garden Salad"
+                                        placeholder="e.g., Rice, Sambar, Curd, Milk etc"
                                         className="dark:bg-gray-700 dark:text-gray-100"
                                         required
                                     />
@@ -325,7 +323,7 @@ const AddFoodPage = () => {
                                 </div>
                                 <div className="space-y-2">
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        Expiration Date
+                                        Expected Expiry Date
                                     </label>
                                     <Input
                                         type="date"
@@ -346,7 +344,7 @@ const AddFoodPage = () => {
                                 <Textarea
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
-                                    placeholder="Include ingredients, dietary information, packaging details..."
+                                    placeholder="Description about food"
                                     className="h-32 dark:bg-gray-700 dark:text-gray-100"
                                     maxLength={500}
                                     required
@@ -355,16 +353,6 @@ const AddFoodPage = () => {
                                     {description.length}/500 characters
                                 </p>
                             </div>
-
-                            {/* Progress Bar */}
-                            {isSubmitting && (
-                                <div className="space-y-4">
-                                    <Progress value={uploadProgress} className="h-2 bg-gray-100 dark:bg-gray-700" />
-                                    <p className="text-sm text-center text-gray-600 dark:text-gray-300">
-                                        Uploading your listing... {uploadProgress}% complete
-                                    </p>
-                                </div>
-                            )}
 
                             {/* Submit Button */}
                             <Button
