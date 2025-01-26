@@ -35,16 +35,17 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
   accounts      Account[]
   sessions      Session[]
   donations     Donation[]
+  foodListings  FoodListing[]
 }
 
 model VerificationRequest {
@@ -77,4 +78,38 @@ model Donation {
   @@index([donorEmail])
   @@index([status])
   @@index([createdAt])
+}
+
+model FoodListing {
+  id              String    @id @default(cuid())
+  name            String
+  description     String
+  quantity        Int
+  expirationDate  DateTime
+  imageData       Bytes
+  imageMimeType   String
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  userId          String
+  user            User      @relation(fields: [userId], references: [id])
+  addressId       String
+  address         Address   @relation(fields: [addressId], references: [id])
+
+  @@index([name])
+  @@index([expirationDate])
+  @@index([createdAt])
+}
+
+model Address {
+  id          String       @id @default(cuid())
+  street      String
+  city        String
+  state       String
+  postalCode  String
+  landmark    String?
+  foodListings FoodListing[]
+
+  @@index([city])
+  @@index([state])
+  @@index([postalCode])
 }
