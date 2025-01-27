@@ -127,6 +127,7 @@ const MyDonationsPage = () => {
                   <Table className="border-collapse w-full">
                     <TableHeader>
                       <TableRow className="hover:bg-transparent">
+                        <TableHead className="text-gray-600 dark:text-gray-300 font-medium">No.</TableHead>
                         <TableHead className="text-gray-600 dark:text-gray-300 font-medium">Amount</TableHead>
                         <TableHead className="text-gray-600 dark:text-gray-300 font-medium">Payment ID</TableHead>
                         <TableHead className="text-gray-600 dark:text-gray-300 font-medium">Date</TableHead>
@@ -134,30 +135,36 @@ const MyDonationsPage = () => {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {donations.map((donation) => (
-                        <TableRow
-                          key={donation.id}
-                          className="border-t dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/30"
-                        >
-                          <TableCell className="font-medium dark:text-gray-100">
-                            ₹{new Intl.NumberFormat('en-IN').format(donation.amount)}
-                          </TableCell>
-                          <TableCell className="text-muted-foreground dark:text-gray-400 font-mono text-sm">
-                            {donation.paymentId}
-                          </TableCell>
-                          <TableCell className="dark:text-gray-300">
-                            {format(new Date(donation.createdAt), 'dd MMM yyyy, hh:mm a')}
-                          </TableCell>
-                          <TableCell>
-                            <span className={`px-2.5 py-1 rounded-full text-sm font-medium ${donation.status === 'captured'
-                                ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                                : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
-                              }`}>
-                              {donation.status === 'captured' ? 'Success' : 'Pending'}
-                            </span>
-                          </TableCell>
-                        </TableRow>
-                      ))}
+                      {donations
+                        .slice()
+                        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                        .map((donation, index) => (
+                          <TableRow
+                            key={donation.id}
+                            className="border-t dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/30"
+                          >
+                            <TableCell className="font-medium dark:text-gray-100">
+                              {index + 1}
+                            </TableCell>
+                            <TableCell className="font-medium dark:text-gray-100">
+                              ₹{new Intl.NumberFormat('en-IN').format(donation.amount)}
+                            </TableCell>
+                            <TableCell className="text-muted-foreground dark:text-gray-400 font-mono text-sm">
+                              {donation.paymentId}
+                            </TableCell>
+                            <TableCell className="dark:text-gray-300">
+                              {format(new Date(donation.createdAt), 'dd MMM yyyy, hh:mm a')}
+                            </TableCell>
+                            <TableCell>
+                              <span className={`px-2.5 py-1 rounded-full text-sm font-medium ${donation.status === 'captured'
+                                  ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                                  : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
+                                }`}>
+                                {donation.status === 'captured' ? 'Success' : 'Pending'}
+                              </span>
+                            </TableCell>
+                          </TableRow>
+                        ))}
                     </TableBody>
                   </Table>
                 )}
