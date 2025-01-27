@@ -32,7 +32,11 @@ const MyListingsPage = () => {
 
             if (!response.ok) throw new Error('Failed to fetch listings');
             const data = await response.json();
-            setListings(data);
+            // Sort listings by creation date (newest first)
+            const sortedData = data.sort((a, b) =>
+                new Date(b.createdAt) - new Date(a.createdAt)
+            );
+            setListings(sortedData);
         } catch (error) {
             console.error('Error fetching listings:', error);
         } finally {
@@ -52,6 +56,19 @@ const MyListingsPage = () => {
         router.push("/signin");
         return null;
     }
+
+    // Function to format date in Indian format with time
+    const formatIndianDateTime = (dateString) => {
+        const options = {
+            timeZone: 'Asia/Kolkata',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+        };
+        return new Date(dateString).toLocaleString('en-IN', options);
+    };
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 mt-10">
@@ -123,7 +140,7 @@ const MyListingsPage = () => {
                     {/* Main Content */}
                     <div className="col-span-3 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
                         <h1 className="text-3xl font-bold mb-6 dark:text-gray-100">My Food Listings</h1>
-                        
+
                         <Card className="p-6">
                             {listings.length === 0 ? (
                                 <div className="text-center py-8">
@@ -133,7 +150,7 @@ const MyListingsPage = () => {
                                 </div>
                             ) : (
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    {listings.map((listing) => (
+                                    {listings.map((listing, index) => (
                                         <div key={listing.id} className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-600">
                                             <div className="relative h-48 w-full mb-4">
                                                 <Image
@@ -145,28 +162,21 @@ const MyListingsPage = () => {
                                                 />
                                             </div>
                                             <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">
-                                                {listing.name}
+                                                {index + 1}. {listing.name}
                                             </h3>
                                             <p className="text-gray-600 dark:text-gray-300 text-sm mb-2">
                                                 Quantity: {listing.quantity} servings
                                             </p>
                                             <p className="text-gray-600 dark:text-gray-300 text-sm mb-2">
-                                                Expires: {new Date(listing.expirationDate).toLocaleDateString()}
+                                                Expires: {new Date(listing.expirationDate).toLocaleDateString('en-IN', {
+                                                    timeZone: 'Asia/Kolkata'
+                                                })}
                                             </p>
                                             <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
                                                 {listing.description}
                                             </p>
-                                            <div className="flex justify-between items-center">
-                                                <span className="text-sm text-gray-500 dark:text-gray-400">
-                                                    {new Date(listing.createdAt).toLocaleDateString()}
-                                                </span>
-                                                <Button
-                                                    size="sm"
-                                                    variant="outline"
-                                                    onClick={() => router.push(`/edit-listing/${listing.id}`)}
-                                                >
-                                                    Edit
-                                                </Button>
+                                            <div className="text-sm text-gray-500 dark:text-gray-400">
+                                                Listed on: {formatIndianDateTime(listing.createdAt)}
                                             </div>
                                         </div>
                                     ))}
