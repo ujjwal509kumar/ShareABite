@@ -57,7 +57,7 @@ const DonationPage = () => {
                 key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
                 amount: orderData.amount,
                 currency: orderData.currency,
-                name: "Food Waste Reduction",
+                name: "ShareABite",
                 description: "Community Donation",
                 order_id: orderData.id,
                 handler: async (response) => {
@@ -70,7 +70,7 @@ const DonationPage = () => {
                     const result = await verificationResponse.json();
                     if (result.success) {
                         toast.success('Donation successful! Thank you!');
-                        router.push('/dasboard/thankyou');
+                        router.push('/dashboard/thankyou');
                     } else {
                         toast.error(result.error || 'Payment verification failed');
                     }
