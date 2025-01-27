@@ -7,9 +7,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Loader2, CheckCircle, ImagePlus } from 'lucide-react';
-import { toast } from 'react-hot-toast';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddFoodPage = () => {
     const { data: session, status } = useSession();
@@ -60,7 +61,7 @@ const AddFoodPage = () => {
             formData.append('quantity', quantity);
             formData.append('expirationDate', expirationDate);
             formData.append('image', image);
-            
+
             // Address data
             formData.append('street', address.street);
             formData.append('city', address.city);
@@ -74,24 +75,35 @@ const AddFoodPage = () => {
             });
 
             if (res.ok) {
-                toast.success('Listing added successfully!', {
-                    icon: <CheckCircle className="w-5 h-5 text-green-500" />,
-                    style: {
-                        background: '#f0fdf4',
-                        color: '#166534',
-                    },
-                    duration: 2000,
-                });
-                setTimeout(() => router.push('dashboard/mylisting'), 2000);
+                toast.success(
+                    <div className="flex items-center gap-2">
+                        Listing added successfully!
+                    </div>,
+                    {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    }
+                );
+                setTimeout(() => router.push('/dashboard/mylisting'), 2000);
             } else {
                 throw new Error('Failed to add listing');
             }
         } catch (error) {
             toast.error(error.message || 'Error adding food listing', {
-                style: {
-                    background: '#fef2f2',
-                    color: '#b91c1c',
-                },
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
             });
         } finally {
             setIsSubmitting(false);
@@ -239,7 +251,7 @@ const AddFoodPage = () => {
                                     <Input
                                         placeholder="Street Address"
                                         value={address.street}
-                                        onChange={(e) => setAddress({...address, street: e.target.value})}
+                                        onChange={(e) => setAddress({ ...address, street: e.target.value })}
                                         className="dark:bg-gray-700 dark:text-gray-100"
                                         required
                                     />
@@ -251,7 +263,7 @@ const AddFoodPage = () => {
                                     <Input
                                         placeholder="City"
                                         value={address.city}
-                                        onChange={(e) => setAddress({...address, city: e.target.value})}
+                                        onChange={(e) => setAddress({ ...address, city: e.target.value })}
                                         className="dark:bg-gray-700 dark:text-gray-100"
                                         required
                                     />
@@ -263,7 +275,7 @@ const AddFoodPage = () => {
                                     <Input
                                         placeholder="State/Province"
                                         value={address.state}
-                                        onChange={(e) => setAddress({...address, state: e.target.value})}
+                                        onChange={(e) => setAddress({ ...address, state: e.target.value })}
                                         className="dark:bg-gray-700 dark:text-gray-100"
                                         required
                                     />
@@ -275,7 +287,7 @@ const AddFoodPage = () => {
                                     <Input
                                         placeholder="Postal Code"
                                         value={address.postalCode}
-                                        onChange={(e) => setAddress({...address, postalCode: e.target.value})}
+                                        onChange={(e) => setAddress({ ...address, postalCode: e.target.value })}
                                         className="dark:bg-gray-700 dark:text-gray-100"
                                         required
                                     />
@@ -287,7 +299,7 @@ const AddFoodPage = () => {
                                     <Input
                                         placeholder="Landmark (e.g., near Central Park)"
                                         value={address.landmark}
-                                        onChange={(e) => setAddress({...address, landmark: e.target.value})}
+                                        onChange={(e) => setAddress({ ...address, landmark: e.target.value })}
                                         className="dark:bg-gray-700 dark:text-gray-100"
                                     />
                                 </div>
@@ -371,9 +383,11 @@ const AddFoodPage = () => {
                             </Button>
                         </form>
                     </main>
+                    <ToastContainer />
                 </div>
             </div>
         </div>
+
     );
 };
 
