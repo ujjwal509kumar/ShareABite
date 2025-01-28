@@ -7,6 +7,14 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Account {
   id                 String    @id @default(cuid())
   userId             String
