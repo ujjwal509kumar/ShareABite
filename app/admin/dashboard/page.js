@@ -79,22 +79,31 @@ export default function AdminDashboard() {
                                     href="/admin/dashboard"
                                     className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center border-2 border-indigo-500"
                                 >
-                                    <FaChartLine className="inline-block mr-2" />
                                     Dashboard
                                 </Link>
                                 <Link
-                                    href="/admin/users"
+                                    href="/admin/createvolunteers"
                                     className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
                                 >
-                                    <FaUsers className="inline-block mr-2" />
-                                    Manage Users
+                                    Create Volunteers
                                 </Link>
                                 <Link
-                                    href="/admin/listings"
+                                    href="/admin/volunteerslist"
                                     className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
                                 >
-                                    <FaBox className="inline-block mr-2" />
-                                    Food Listings
+                                    Volunteers List
+                                </Link>
+                                <Link
+                                    href="/admin/assignvolunteers"
+                                    className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
+                                >
+                                    Assign Volunteers
+                                </Link>
+                                <Link
+                                    href="/admin/trackdonations"
+                                    className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
+                                >
+                                    Track Donations
                                 </Link>
                             </nav>
 
@@ -102,60 +111,42 @@ export default function AdminDashboard() {
                                 onClick={logout}
                                 className="mt-4 w-full py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
                             >
-                                <FaSignOutAlt className="inline-block mr-2" />
                                 Log Out
                             </Button>
                         </aside>
 
                         {/* Main Content */}
                         <main className="col-span-3 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-                            <header className="flex justify-between items-center mb-8">
-                                <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">Admin Dashboard</h1>
-                            </header>
+                            <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">Welcome to Admin Dashboard</h1>
+                            <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
+                                Use the links on the left to manage volunteers, add Volunteers, or assign Volunteers some task.
+                            </p>
 
-                            {/* Stats Cards */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                            {/* Highlighted Features */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md flex flex-col items-center border border-gray-300 dark:border-gray-600">
-                                    <div className="flex items-center gap-4">
-                                        <FaUsers className="w-8 h-8 text-blue-500" />
-                                        <div>
-                                            <p className="text-gray-500 dark:text-gray-300">Total Users</p>
-                                            <p className="text-2xl font-bold">1,234</p>
-                                        </div>
-                                    </div>
+                                    <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-400">
+                                        Add Volunteers
+                                    </h3>
+                                    <p className="text-gray-600 dark:text-gray-300 mt-2 text-center">
+                                        Register Volunteers who are eger to help to society
+                                    </p>
                                 </div>
                                 <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md flex flex-col items-center border border-gray-300 dark:border-gray-600">
-                                    <div className="flex items-center gap-4">
-                                        <FaBox className="w-8 h-8 text-green-500" />
-                                        <div>
-                                            <p className="text-gray-500 dark:text-gray-300">Total Listings</p>
-                                            <p className="text-2xl font-bold">567</p>
-                                        </div>
-                                    </div>
+                                    <h3 className="text-xl font-semibold text-teal-600 dark:text-teal-400">
+                                        Addign Volunteers
+                                    </h3>
+                                    <p className="text-gray-600 dark:text-gray-300 mt-2 text-center">
+                                        Assign Volunteers some tasks
+                                    </p>
                                 </div>
                                 <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md flex flex-col items-center border border-gray-300 dark:border-gray-600">
-                                    <div className="flex items-center gap-4">
-                                        <FaChartLine className="w-8 h-8 text-purple-500" />
-                                        <div>
-                                            <p className="text-gray-500 dark:text-gray-300">Monthly Donations</p>
-                                            <p className="text-2xl font-bold">$12,345</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Recent Activity */}
-                            <div className="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg">
-                                <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-100">Recent Activity</h2>
-                                <div className="space-y-4">
-                                    <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded shadow-sm">
-                                        <span className="text-gray-600 dark:text-gray-300">New user registration</span>
-                                        <span className="text-gray-500 dark:text-gray-400">2 hours ago</span>
-                                    </div>
-                                    <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded shadow-sm">
-                                        <span className="text-gray-600 dark:text-gray-300">Food listing update</span>
-                                        <span className="text-gray-500 dark:text-gray-400">4 hours ago</span>
-                                    </div>
+                                    <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-300">
+                                        Track donations
+                                    </h3>
+                                    <p className="text-gray-600 dark:text-gray-300 mt-2 text-center">
+                                        Track all the donations
+                                    </p>
                                 </div>
                             </div>
                         </main>
