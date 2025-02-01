@@ -105,13 +105,13 @@ const MyListingsPage = () => {
                                 Add Food Listing
                             </Link>
                             <Link
-                                href="/my-listings"
+                                href="/dashboard/mylisting"
                                 className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center border-2 border-indigo-500"
                             >
                                 My Listings
                             </Link>
                             <Link
-                                href="/trackfood"
+                                href="dashboard/mytrackings"
                                 className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
                             >
                                 Track Progress
@@ -131,7 +131,7 @@ const MyListingsPage = () => {
                         </nav>
                         <Button
                             onClick={() => signOut({ callbackUrl: '/signin' })}
-                            className="mt-4 w-full py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all"
+                            className="mt-4 w-full py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
                         >
                             Log Out
                         </Button>

@@ -48,20 +48,18 @@ export default function Dashboard() {
                                         className="rounded-full mx-auto mb-4 border-2 border-indigo-500"
                                     />
                                 )}
-                                <h2 className="text-xl font-bold">{session.user?.name}</h2>
+                                <h2 className="text-xl font-bold dark:text-gray-200">{session.user?.name}</h2>
                                 <p className="text-sm text-gray-500 dark:text-gray-400">
                                     {session.user?.email}
                                 </p>
                             </div>
                             <nav className="space-y-4">
-                                {/* Dashboard Button */}
                                 <Link
                                     href="/dashboard"
                                     className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center border-2 border-indigo-500"
                                 >
                                     Dashboard
                                 </Link>
-                                {/* Add Food Listing Button with Active Border */}
                                 <Link
                                     href="/dashboard/addfood"
                                     className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
@@ -69,13 +67,13 @@ export default function Dashboard() {
                                     Add Food Listing
                                 </Link>
                                 <Link
-                                    href="/my-listings"
+                                    href="/dashboard/mylisting"
                                     className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
                                 >
                                     My Listings
                                 </Link>
                                 <Link
-                                    href="/trackfood"
+                                    href="dashboard/mytrackings"
                                     className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
                                 >
                                     Track Progress
@@ -93,7 +91,6 @@ export default function Dashboard() {
                                     My Donations
                                 </Link>
                             </nav>
-                            {/* Log Out Button */}
                             <Button
                                 onClick={() => signOut({ callbackUrl: '/signin' })}
                                 className="mt-4 w-full py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
