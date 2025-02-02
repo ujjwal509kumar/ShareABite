@@ -134,7 +134,7 @@ export default function AdminDashboard() {
                                 </div>
                                 <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md flex flex-col items-center border border-gray-300 dark:border-gray-600">
                                     <h3 className="text-xl font-semibold text-teal-600 dark:text-teal-400">
-                                        Addign Volunteers
+                                        Assign Volunteers
                                     </h3>
                                     <p className="text-gray-600 dark:text-gray-300 mt-2 text-center">
                                         Assign Volunteers some tasks
