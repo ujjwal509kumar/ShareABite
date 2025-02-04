@@ -27,7 +27,6 @@ model Volunteer {
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  assignedTasks Task[]
 
   @@index([fullName])
   @@index([email])
@@ -36,21 +35,6 @@ model Volunteer {
   @@index([createdAt])
 }
 
-model Task {
-  id           String    @id @default(cuid())
-  title        String
-  description  String
-  status       String    @default("PENDING")
-  dueDate      DateTime
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  volunteerId  String
-  volunteer    Volunteer @relation(fields: [volunteerId], references: [id])
-
-  @@index([title])
-  @@index([status])
-  @@index([dueDate])
-}
 
 model Account {
   id                 String    @id @default(cuid())
