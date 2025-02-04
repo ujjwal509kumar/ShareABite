@@ -111,7 +111,7 @@ export default function VolunteersList() {
                 </Link>
                 <Link
                   href="/admin/volunteerslist"
-                  className="block py-2 px-4 bg-indigo-100 dark:bg-indigo-700 text-indigo-800 dark:text-indigo-200 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-600 transition-all text-center border-2 border-indigo-500"
+                  className="block py-2 px-4 bg-indigo-100 dark:bg-gray-700 text-gray-800 dark:text-indigo-200 rounded-lg hover:bg-indigo-200 dark:hover:bg-gray-600 transition-all text-center border-2 border-indigo-500"
                 >
                   Volunteers List
                 </Link>
