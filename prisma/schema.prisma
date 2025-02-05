@@ -120,6 +120,7 @@ model FoodListing {
   status          String   @default("REQUESTED")
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
+  volunteerEmail  String?
   userId          String
   user            User      @relation(fields: [userId], references: [id])
   addressId       String
