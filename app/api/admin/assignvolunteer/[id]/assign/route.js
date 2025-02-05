@@ -16,22 +16,37 @@ export async function PUT(req, { params }) {
   const { volunteerId, adminEmail } = await req.json();
 
   try {
+    // Get volunteer details
+    const volunteer = await prisma.volunteer.findUnique({
+      where: { id: volunteerId },
+    });
+
+    if (!volunteer) {
+      return NextResponse.json(
+        { error: 'Volunteer not found' },
+        { status: 404 }
+      );
+    }
+
+    // Update food listing with volunteer email
     const listing = await prisma.foodListing.update({
       where: { id },
       data: {
         status: 'ASSIGNED',
-        volunteer: {
-          connect: { id: volunteerId }
-        }
+        volunteerEmail: volunteer.email,
       },
       include: {
         user: true,
-        volunteer: true,
-        address: true
+        address: true,
       },
     });
 
-    // Send emails
+    // Get lister details
+    const lister = await prisma.user.findUnique({
+      where: { id: listing.userId },
+    });
+
+    // Email to food lister
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: listing.user.email,
@@ -40,33 +55,52 @@ export async function PUT(req, { params }) {
         <h1>Volunteer Assigned</h1>
         <p>Your food listing (${listing.name}) has been assigned to a volunteer.</p>
         <h2>Volunteer Details:</h2>
-        <p>Name: ${listing.volunteer.fullName}</p>
-        <p>Email: ${listing.volunteer.email}</p>
-        <p>Phone: ${listing.volunteer.mobile}</p>
+        <p>Name: ${volunteer.fullName}</p>
+        <p>Email: ${volunteer.email}</p>
+        <p>Phone: ${volunteer.mobile}</p>
       `,
     });
 
+    // Email to volunteer
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: listing.volunteer.email,
+      to: volunteer.email,
       subject: 'New Food Listing Assignment',
       html: `
         <h1>New Food Listing Assignment</h1>
-        <p>You've been assigned to collect a food listing.</p>
+        <p>You've been assigned to collect a food listing:</p>
         <h2>Listing Details:</h2>
         <p>Name: ${listing.name}</p>
         <p>Quantity: ${listing.quantity}</p>
-        <p>Expiration Date: ${new Date(listing.expirationDate).toLocaleDateString()}</p>
+        <p>Expiration: ${new Date(listing.expirationDate).toLocaleDateString()}</p>
         <h2>Pickup Address:</h2>
         <p>${listing.address.street}, ${listing.address.city}</p>
         <p>${listing.address.state} - ${listing.address.postalCode}</p>
+        <h2>Contact Information:</h2>
+        <p>Lister Name: ${lister.name}</p>
+        <p>Lister Email: ${lister.email}</p>
       `,
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ 
+      success: true,
+      data: {
+        ...listing,
+        volunteer: {
+          fullName: volunteer.fullName,
+          email: volunteer.email,
+          mobile: volunteer.mobile
+        }
+      }
+    });
+
   } catch (error) {
+    console.error('Error:', error);
     return NextResponse.json(
-      { error: 'Failed to assign volunteer' },
+      { 
+        error: 'Failed to assign volunteer',
+        details: error.message 
+      },
       { status: 500 }
     );
   }
