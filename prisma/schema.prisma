@@ -144,3 +144,18 @@ model Address {
   @@index([state])
   @@index([postalCode])
 }
+
+model Blogs {
+  id          Int      @id @default(autoincrement())
+  title       String
+  para1       String?
+  para2       String?
+  para3       String?
+  para4       String?
+  gener       String?
+  description String?
+  slug        String   @unique
+  link        String?
+  quote       String?
+  date        DateTime
+}
