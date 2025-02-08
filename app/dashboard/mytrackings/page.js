@@ -168,7 +168,7 @@ export default function MyTrackings() {
                                                             className={`px-2 py-1 rounded-full text-sm font-semibold ${
                                                                 listing.status === "REQUESTED"
                                                                     ? "bg-yellow-100 text-yellow-800"
-                                                                    : listing.status === "APPROVED"
+                                                                    : listing.status === "ASSIGNED"
                                                                     ? "bg-green-100 text-green-800"
                                                                     : listing.status === "DISTRIBUTED"
                                                                     ? "bg-blue-100 text-blue-800"
