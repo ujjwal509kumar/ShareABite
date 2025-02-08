@@ -26,7 +26,7 @@ export default function AssignVolunteers() {
       try {
         const decoded = JSON.parse(atob(token.split('.')[1]));
         const currentTime = Date.now() / 1000;
-        
+
         if (decoded.exp < currentTime) {
           throw new Error("Token expired");
         }
@@ -86,9 +86,9 @@ export default function AssignVolunteers() {
       if (!res.ok) throw new Error("Assignment failed");
 
       setFoodListings(prev =>
-        prev.map(l => 
-          l.id === listingId 
-            ? { ...l, status: "ASSIGNED" } 
+        prev.map(l =>
+          l.id === listingId
+            ? { ...l, status: "ASSIGNED" }
             : l
         )
       );
@@ -143,6 +143,11 @@ export default function AssignVolunteers() {
                 <Link href="/admin/assignvolunteers" className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center border-2 border-indigo-500">
                   Assign Volunteers
                 </Link>
+                <Link href="/admin/changefoodstatus"
+                  className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
+                >
+                  Change Food Status
+                </Link>
                 <Link href="/admin/trackdonations" className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center">
                   Track Donations
                 </Link>
@@ -165,7 +170,7 @@ export default function AssignVolunteers() {
 
               <div className="space-y-4">
                 {foodListings.map(listing => (
-                  <div 
+                  <div
                     key={listing.id}
                     className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600"
                   >
@@ -175,15 +180,14 @@ export default function AssignVolunteers() {
                         <p className="text-gray-600 dark:text-gray-300">
                           {listing.quantity} units · Expires: {new Date(listing.expirationDate).toLocaleDateString()}
                         </p>
-                        <span className={`text-sm ${
-                          listing.status === 'REQUESTED' 
-                            ? 'text-yellow-600 dark:text-yellow-400' 
+                        <span className={`text-sm ${listing.status === 'REQUESTED'
+                            ? 'text-yellow-600 dark:text-yellow-400'
                             : 'text-green-600 dark:text-green-400'
-                        }`}>
+                          }`}>
                           Status: {listing.status}
                         </span>
                       </div>
-                      <Button 
+                      <Button
                         onClick={() => setSelectedListing(
                           selectedListing === listing.id ? null : listing.id
                         )}
@@ -198,15 +202,15 @@ export default function AssignVolunteers() {
                         <h4 className="text-lg font-semibold mb-4">Available Volunteers</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           {volunteers.map(volunteer => (
-                            <div 
+                            <div
                               key={volunteer.id}
                               className="p-3 border rounded-lg hover:bg-gray-100 dark:hover:bg-gray-500"
                             >
                               <p className="font-medium">{volunteer.fullName}</p>
                               <p className="text-sm">{volunteer.email}</p>
                               <p className="text-sm">{volunteer.mobile}</p>
-                              <Button 
-                                size="sm" 
+                              <Button
+                                size="sm"
                                 className="mt-2"
                                 onClick={() => assignVolunteer(listing.id, volunteer)}
                                 disabled={loading}
