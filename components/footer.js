@@ -21,7 +21,7 @@ export default function Footer() {
             <Link href="/contact" className="hover:text-primary dark:hover:text-primary-light">
               Contact
             </Link>
-            <Link href="/privacy" className="hover:text-primary dark:hover:text-primary-light">
+            <Link href="/policy" className="hover:text-primary dark:hover:text-primary-light">
               Privacy Policy
             </Link>
           </div>
