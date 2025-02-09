@@ -159,3 +159,15 @@ model Blogs {
   quote       String?
   date        DateTime
 }
+
+model Activedonationcenter {
+  id               Int      @id @default(autoincrement())
+  volunteerName    String
+  volunteerMobile  String
+  donationCenter   String
+  donationLocation String
+  donationType     String   
+  activeFrom       DateTime
+  activeUntil      DateTime
+  createdAt        DateTime @default(now())
+}
