@@ -18,6 +18,7 @@ const ActiveDonationCard = ({ donation }) => (
     <div className="p-6 border rounded-lg shadow bg-white dark:bg-gray-800">
         <div className="flex flex-col items-center">
             <p className="font-bold text-lg">{donation.volunteerName}</p>
+            <p className="font-light text-sm">Mobile : {donation.volunteerMobile}</p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
                 {donation.donationCenter} - {donation.donationLocation}
             </p>
