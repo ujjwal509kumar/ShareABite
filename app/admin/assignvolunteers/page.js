@@ -148,6 +148,12 @@ export default function AssignVolunteers() {
                 >
                   Change Food Status
                 </Link>
+                <Link
+                  href="/admin/addfoodlisting"
+                  className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
+                >
+                  Add Food Listing
+                </Link>
                 <Link href="/admin/trackdonations" className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center">
                   Track Donations
                 </Link>
@@ -181,8 +187,8 @@ export default function AssignVolunteers() {
                           {listing.quantity} units · Expires: {new Date(listing.expirationDate).toLocaleDateString()}
                         </p>
                         <span className={`text-sm ${listing.status === 'REQUESTED'
-                            ? 'text-yellow-600 dark:text-yellow-400'
-                            : 'text-green-600 dark:text-green-400'
+                          ? 'text-yellow-600 dark:text-yellow-400'
+                          : 'text-green-600 dark:text-green-400'
                           }`}>
                           Status: {listing.status}
                         </span>

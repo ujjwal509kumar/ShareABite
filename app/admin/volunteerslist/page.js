@@ -128,6 +128,12 @@ export default function VolunteersList() {
                   Change Food Status
                 </Link>
                 <Link
+                  href="/admin/addfoodlisting"
+                  className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
+                >
+                  Add Food Listing
+                </Link>
+                <Link
                   href="/admin/trackdonations"
                   className="block py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all text-center"
                 >
@@ -179,8 +185,8 @@ export default function VolunteersList() {
                         <td className="p-3">
                           <span
                             className={`px-2 py-1 rounded-full text-sm ${volunteer.isActive
-                                ? "bg-green-100 text-green-800"
-                                : "bg-red-100 text-red-800"
+                              ? "bg-green-100 text-green-800"
+                              : "bg-red-100 text-red-800"
                               }`}
                           >
                             {volunteer.isActive ? "Active" : "Inactive"}
