@@ -173,12 +173,12 @@ export default function Home() {
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-2">{cause.title}</h3>
                   <p className="text-muted-foreground mb-4">{cause.desc}</p>
-                  <Button
+                  <a href='/foodmap'><Button
                     variant="secondary"
                     className="bg-primary hover:bg-primary/90 text-primary-foreground transition-transform duration-300 hover:scale-105"
                   >
                     Learn More
-                  </Button>
+                  </Button></a>
                 </CardContent>
               </Card>
             ))}
