@@ -29,9 +29,9 @@ export default function ContactUs() {
             <section className="py-12">
                 <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {[
-                        { icon: Mail, title: "Email Us", details: "support@fooddonation.org", subtext: "We’ll respond within 24 hours", image: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-                        { icon: Phone, title: "Call Us", details: "+1 (555) 123-4567", subtext: "Mon-Fri, 9am-6pm", image: "https://images.unsplash.com/uploads/1413222992504f1b734a6/1928e537?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-                        { icon: MapPin, title: "Visit Us", details: "123 Donation Street, New York, NY 10001", subtext: "Stop by anytime", image: "https://images.unsplash.com/photo-1557766131-dca3a8acae87?q=80&w=1934&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+                        { icon: Mail, title: "Email Us", details: "ujjwal509kumar@gmail.com", subtext: "We’ll respond within 24 hours", image: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+                        { icon: Phone, title: "Call Us", details: "+91 123456789", subtext: "Mon-Fri, 9am-6pm", image: "https://images.unsplash.com/uploads/1413222992504f1b734a6/1928e537?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+                        { icon: MapPin, title: "Visit Us", details: "Mailasandra, Bengaluru", subtext: "Stop by anytime", image: "https://images.unsplash.com/photo-1557766131-dca3a8acae87?q=80&w=1934&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
                         { icon: Clock, title: "Hours", details: "Monday - Friday", subtext: "9:00 AM - 6:00 PM", image: "https://images.unsplash.com/photo-1575265114485-3f3fa47ef052?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
                     ].map((item, i) => (
                         <Card key={i} className="bg-card border border-border shadow-md hover:shadow-lg transition-transform transform hover:scale-105">
